@@ -1,5 +1,5 @@
 <template>
-  <ul class="nav bg-secondary justify-content-center py-1 sticky-top">
+  <ul class="nav bg-secondary justify-content-center py-1 sticky-top" style="z-index: 5">
     <li class="nav-item">
       <router-link class="nav-link text-uppercase" aria-current="page" :to="{ name:'ResultsByLabels', params: {tag: encodeURI('0 Línea capilar')} }" >Línea Capilar</router-link>
     </li>

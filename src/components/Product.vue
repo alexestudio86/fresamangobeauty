@@ -64,10 +64,18 @@
           <option value='50'>50</option>
       </select>
       <hr />
-      <button class='btn btn-warning w-100' type='button' @click='addToCar' ><i class='fas fa-cart-plus'/> Añadir al carrito</button>
+      <div class="py-1">
+        <button class='btn bg-warning w-100 custom' type='button' @click='addToCar' data-bs-toggle="tooltip" data-bs-placement="top" title="Producto actualizado" >
+          <i class='fas fa-cart-plus'/> Añadir al carrito
+        </button>
+      </div>
+      <div class="py-1">
+        <router-link class="btn btn-warning w-100" to='/dataForm' >Realizar pedido</router-link>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import { mapState } from 'vuex'
@@ -87,6 +95,11 @@ export default {
     }
   },
   methods: {
+    showTooltip(){
+      const tooltipExample = document.querySelector('[data-bs-toggle="tooltip"]');
+      const tooltip = bootstrap.Tooltip.getOrCreateInstance(tooltipExample);
+      tooltip.show()
+    },
     getImage(e){
       if(e[0].url == 0){
         return 'https://blogger.googleusercontent.com/img/a/AVvXsEh7Jx5rNMA2KDw2pXf65nS5ybDjI4Hd8VhHil6KU6oiOZY9KxWzcQK7K49JzIY1OwuT8lIXHHD8-wC-EZb88ceQSt8XHwkeJl-ogDxHtwY9zt7s0OVDlm8MXDanI7h2rl_vl-dCK-kaTy2hG1x6BbfxoEJdGECG1VK8BjBCIqjjAOdzmlKcBGl9ZK1tfg=s640'
@@ -107,6 +120,7 @@ export default {
       }else{
         this.car.push( this.item );
       }
+      this.showTooltip();
       const carString = JSON.stringify(this.car);
       localStorage.setItem('car', carString);
     }
@@ -118,3 +132,12 @@ export default {
 
 }
 </script>
+
+
+<style scoped>
+
+  .custom{
+    --bs-bg-opacity:    .5;
+  }
+
+</style>

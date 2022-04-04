@@ -5,15 +5,11 @@ export default {
   namespaced: true,
   state: {
     posts: [],
-    labels: [],
     post: [],
     postByLabels: [],
     loader: null
   },
   mutations: {
-    allLabels( state, labelsList ){
-      state.labels        = labelsList;
-    },
     allPost( state, postsJson ){
       state.loader        = false;
       state.posts         = postsJson;
@@ -33,33 +29,6 @@ export default {
     }
   },
   actions: {
-    getAllLabels: async function({commit}){
-      try{
-        const data        = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${blogID}/posts?key=${apiKey}&maxResults=200`);
-        const allData     = await data.json();
-        const postsJson   = allData.items;
-        const labelsList  = [];
-        postsJson.forEach( element => {
-          element.labels.forEach( e => { 
-            if( labelsList.some( l => {
-                if( l.val === e ){
-                  return true
-                }
-              })
-            ){
-            }else{
-              if( e === '0 Línea capilar' || e === '0 Línea cosmética' ){
-              }else{
-                labelsList.push( {val:e} )
-              }
-            }
-          })
-        });
-        commit('allLabels', labelsList)
-      }catch(error){
-
-      }
-    },
     getAllProducts: async function ({ commit, state }) {
       state.loader        = true;
       try{

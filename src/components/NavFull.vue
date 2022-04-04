@@ -28,9 +28,9 @@
                             Productos
                         </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <router-link to="/">Home</router-link>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li v-for="(label, index) of labels" :key="index">
+                            <a class="dropdown-item" href="#">{{ label }}</a>
+                        </li>
                     </ul>
                     </li>
                 </ul>
@@ -47,7 +47,7 @@
 
 <script>
 import router from '@/router'
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
 
@@ -58,6 +58,7 @@ export default {
       }
   },
   computed: {
+    ...mapState(['labels']),
     ...mapGetters(['totalItems']),
     search(){
         router.push({ name:'ResultsBySearch', params: {text: encodeURI(this.searchText)} });
